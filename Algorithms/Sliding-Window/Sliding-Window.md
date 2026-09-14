@@ -17,7 +17,7 @@
 > **Key Optimization Notes:**
 > * After sliding to a new window, calculate and update stored window state/information.
 > * Most of the time, use a **HashMap** (for arrays) or an array of size 256 (for character frequencies in strings) to track window state.
-
+> 3. **Not Work On -ve Number:**
 ---
 
 ### Pseudo Codes

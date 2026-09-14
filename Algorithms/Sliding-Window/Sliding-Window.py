@@ -1,1 +1,59 @@
 # Solution Of The Problem Mentioned in the Sliding-Window Readme.md
+
+#-----------
+# Maximum Average Subarray I
+#-----------
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        if(k>len(nums)):return 0
+        
+        low=0
+        high=k-1
+        sum=0
+
+        for i in range(k):
+            sum+=nums[i]
+
+        result=sum
+        while high<len(nums):
+            result=max(result,sum)
+            sum= sum- nums[low]
+            low+=1
+            if high==len(nums)-1:break
+            high+=1
+            sum=sum+ nums[high]
+        
+        return result/k
+
+#-----------
+# Maximum Number of Vowels in a Substring of Given Length
+#-----------
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        count = 0
+        # Using a set makes lookups much faster O(1)
+        vowel = {'a', 'e', 'i', 'o', 'u'}
+
+        low = 0
+        high = k - 1
+
+        # Check all elements in the initial window (up to k elements)
+        for i in range(k):
+            if s[i] in vowel:
+                count += 1
+
+        ans = count
+
+        # FIX: In Python, use len(s) instead of s.length
+        while high < len(s):
+            ans = max(ans, count)
+            if s[low] in vowel:
+                count -= 1
+            low += 1
+            if high == len(s) - 1: 
+                break
+            high += 1
+            if s[high] in vowel:
+                count += 1
+                
+        return ans

@@ -44,7 +44,6 @@ class Solution:
 
         ans = count
 
-        # FIX: In Python, use len(s) instead of s.length
         while high < len(s):
             ans = max(ans, count)
             if s[low] in vowel:
@@ -57,3 +56,43 @@ class Solution:
                 count += 1
                 
         return ans
+
+
+#-----------
+# Find All Anagrams in a String
+#-----------
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> list[int]:
+        if len(s)<len(p):
+            return[]
+
+        p_count=[0]*26
+        s_count=[0]*26
+        window_size=len(p)
+        low=0
+        high=window_size-1
+        result =[]
+
+        for i in range(window_size):
+            s_count[ord(s[i]) - ord("a")] += 1
+            p_count[ord(p[i]) - ord("a")] += 1
+        
+
+        while(high<len(s)):
+            if s_count == p_count:
+                result.append(low)
+            
+            #remove low from the window
+            s_count[ord(s[low]) - ord("a")] -= 1
+            low+=1
+
+            # edge case 
+            if high == len(s)-1:
+                break
+            
+            high+=1
+            # now include the new high
+            s_count[ord(s[high]) - ord("a")] += 1
+            
+        return result
+

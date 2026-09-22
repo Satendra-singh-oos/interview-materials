@@ -96,3 +96,56 @@ class Solution:
             
         return result
 
+
+
+#--------
+# 3. Longest Substring Without Repeating Characters
+#--------
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        low=0
+        high=0
+        max_sub_str = 0
+        freq_map = {}
+
+        while high<len(s):
+            curr_char=s[high]
+            freq_map[curr_char]= freq_map.get(curr_char,0)+1
+            while freq_map.get(curr_char) > 1:
+                left_char = s[low]
+                freq_map[left_char]= freq_map.get(left_char)-1
+                low+=1
+
+            current_window_size=high-low+1
+            max_sub_str= max(max_sub_str,current_window_size)
+            high+=1
+        return  max_sub_str
+    
+
+#----------
+# 1004. Max Consecutive Ones III
+#----------
+
+class Solution:
+    def longestOnes(self, nums: list[int], k: int) -> int:
+        low=0
+        high=0
+        zero_count=0
+        ans=0
+
+        while high <len(nums):
+            if nums[high] ==0 :
+                zero_count+=1
+
+            while zero_count>k:
+                if nums[low] == 0 :
+                    zero_count-=1
+                low+=1
+
+            
+            current_window=high-low+1
+            ans=max(current_window,ans)
+            high+=1
+
+        return ans
+
